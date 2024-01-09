@@ -24,6 +24,11 @@ const Customer_Job_Schema = mongoose.model('create_customer_job', new Schema({
         required: true
     },
 
+    zipcode: {
+        type: String,
+        required: true
+    },
+
     // to_date: { type: String, required: true },
     // to_time: { type: String, required: true },
     // from_time: { type: String, required: true },

@@ -218,6 +218,10 @@ const get_all_customers = async (req, res, next) => {
 
 const get_matching_job = async (req, res, next) => {
     const { query, vendorId } = req.body
+    const find_user = await Vendor_Schema.findOne({_id:  vendorId });
+    // const datas = find_user.zipCode;
+    const datas = find_user.zipCode.toString();
+    console.log(datas)
     try {
         const pipeline = [
             {
@@ -230,6 +234,14 @@ const get_matching_job = async (req, res, next) => {
                     selected_queries: { $all: [query] },
                 },
             },
+            // {
+            //                 $match: {
+            //                     $or: [
+            //                         { "jobs.zipcode": 2211 },
+            //                         // { "jobs.zipcode": null },
+            //                     ],
+            //                 },
+            //             },
             {
                 $facet: {
                     jobs: [
@@ -245,6 +257,14 @@ const get_matching_job = async (req, res, next) => {
                             $unwind: {
                                 path: "$jobs",
                                 preserveNullAndEmptyArrays: true,
+                            },
+                        },
+                        {
+                            $match: {
+                                $or: [
+                                    { "jobs.zipcode": datas},
+                                    // { "jobs.zipcode": null },
+                                ],
                             },
                         },
                         {
@@ -271,9 +291,7 @@ const get_matching_job = async (req, res, next) => {
                                 "jobs.to_date": 1,
                                 "jobs.to_time": 1,
                                 "jobs.from_time": 1,
-
-
-
+                                "jobs.zipcode": 1,
                                 "jobs.Budget": 1,
                                 "jobs.createdAt": 1,
                                 "userDetails.Name": 1,
@@ -286,7 +304,7 @@ const get_matching_job = async (req, res, next) => {
                     ],
                 },
             },
-        ]
+        ];
         // const pipeline = [
         //     {
         //         $match: {
@@ -311,7 +329,6 @@ const get_matching_job = async (req, res, next) => {
         //                         preserveNullAndEmptyArrays: true,
         //                     },
         //                 },
-
         //                 {
         //                     $addFields: {
         //                         overlapping_times: {
@@ -424,7 +441,6 @@ const get_matching_job = async (req, res, next) => {
         //     },
         // ]
         const resultVariable = await Vendor_Schema.aggregate([...pipeline,]);
-
         if (resultVariable.length === 0) {
             return res.status(404).json({
                 message: "No matching jobs found for the given query."
@@ -437,7 +453,6 @@ const get_matching_job = async (req, res, next) => {
     } catch (error) {
         return next(error);
     }
-
 }
 
 const create_vendor_gig = async (req, res) => {

@@ -180,6 +180,7 @@ const create_customer_job = async (req, res, next) => {
             // to_time,
             // from_time
             available,
+            zipcode,
         
 
 
@@ -208,6 +209,7 @@ const create_customer_job = async (req, res, next) => {
             // to_time,
             // from_time
            availablity_times: availabilities,
+           zipcode,
          
             
            
