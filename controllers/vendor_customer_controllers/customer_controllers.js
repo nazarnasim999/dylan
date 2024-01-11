@@ -181,6 +181,7 @@ const create_customer_job = async (req, res, next) => {
             // from_time
             available,
             zipcode,
+            emergency,
         
 
 
@@ -210,6 +211,7 @@ const create_customer_job = async (req, res, next) => {
             // from_time
            availablity_times: availabilities,
            zipcode,
+           emergency,
          
             
            
@@ -497,6 +499,26 @@ const get_customer_profile_by_id = async (req, res, next) => {
     }
 }
 
+const save_image1 = async (req, res, next) => {
+    try {
+      const { imagePath, userId } = req.body;
+      // Find the document with the user ID in the create_vendor collection
+      let customer = await Customer_Schema.findOne({ _id: userId });
+      // let customer = await Customer_Schema.findOne({ _id: '658accf531fdde44bc3f16e1' });
+      console.log('lllllTSCustomer' , userId);
+      // console.log('lllllTSCustomer' , '658accf531fdde44bc3f16e1');
+      // If the document doesn't exist, create a new one
+      // Update the Profile_Image field with the image path
+      customer.Profile_Image = imagePath;
+      // Save the document in the create_vendor collection
+      await customer.save();
+      res.json({ message: 'Image path saved successfully' });
+     } catch (error) {
+      console.error('Error saving image path to customer table:', error);
+      res.status(500).json({ error: 'Error saving image path to customer table' });
+     }
+  }
+
 const get_vendors_recent_chats = async (req, res, next) => {
 
     const { current_customer_id } = req.body
@@ -639,6 +661,7 @@ module.exports = {
     get_createed_job_by_user_id,
     get_matching_vendors,
     get_customer_profile_by_id,
-    get_vendors_recent_chats
+    get_vendors_recent_chats,
+    save_image1
 }
 

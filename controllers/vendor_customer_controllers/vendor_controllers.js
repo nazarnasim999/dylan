@@ -136,6 +136,8 @@ const save_image = async (req, res, next) => {
       }
 }
 
+
+
 const login_vendor = async (req, res, next) => {
     const { body } = req;
     try {
@@ -293,6 +295,7 @@ const get_matching_job = async (req, res, next) => {
                                 "jobs.from_time": 1,
                                 "jobs.zipcode": 1,
                                 "jobs.Budget": 1,
+                                "jobs.emergency": 1,
                                 "jobs.createdAt": 1,
                                 "userDetails.Name": 1,
                                 "userDetails.email": 1,
@@ -685,4 +688,4 @@ const get_customers_recent_chats = async (req, res, next) => {
     }
 }
 
-module.exports = { create_vendor, save_image,login_vendor, get_all_customers, create_vendor_gig, get_vendor_git_by_id, get_vendor_profile_by_id, get_matching_job, get_customers_recent_chats }
+module.exports = { create_vendor ,save_image,login_vendor, get_all_customers, create_vendor_gig, get_vendor_git_by_id, get_vendor_profile_by_id, get_matching_job, get_customers_recent_chats }

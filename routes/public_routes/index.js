@@ -1,7 +1,7 @@
 const express = require('express');
 const { register_user, login_user, verify_reset_password_OTP, reset_user_password_request, verify_OTP_and_create_password, } = require('../../controllers/auth_controllers');
 const { upload_image_contoller } = require('../../controllers/upload_files_controllers/upload_images_cont.js');
-const { create_customer, login_customer, create_customer_job, get_createed_job_by_user_id, get_customer_profile_by_id, get_matching_vendors, get_vendors_recent_chats } = require('../../controllers/vendor_customer_controllers/customer_controllers.js');
+const { create_customer, save_image1 ,login_customer, create_customer_job, get_createed_job_by_user_id, get_customer_profile_by_id, get_matching_vendors, get_vendors_recent_chats } = require('../../controllers/vendor_customer_controllers/customer_controllers.js');
 const { create_vendor, save_image ,get_all_customers, get_vendor_git_by_id, get_vendor_profile_by_id, login_vendor, create_vendor_gig, get_matching_job, get_customers_recent_chats } = require('../../controllers/vendor_customer_controllers/vendor_controllers.js');
 const { saveMessage, getMessages } = require('../../controllers/chatController/chatController.js');
 const { createSchedule, createPayments ,respondToSchedule, getVendorSchedules, getCustomerSchedules, editCreatedSchedule } = require('../../controllers/vendor_customer_controllers/schedule_controllers .js');
@@ -24,7 +24,7 @@ router.post('/reset-password-create', verify_OTP_and_create_password)
 
 
 
-
+router.post('/save-customerimage-path', save_image1)
 router.post('/upload-files', upload_image_contoller)
 // upload-files
 
