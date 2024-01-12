@@ -21,9 +21,6 @@ router.post('/reset-password-req', reset_user_password_request)
 router.post('/reset-password-otp-verify', verify_reset_password_OTP)
 router.post('/reset-password-create', verify_OTP_and_create_password)
 
-
-
-
 router.post('/save-customerimage-path', save_image1)
 router.post('/upload-files', upload_image_contoller)
 // upload-files

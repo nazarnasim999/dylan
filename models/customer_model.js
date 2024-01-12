@@ -9,7 +9,7 @@ const Customer_Schema = mongoose.model('create_customer', new Schema({
     },
     Profile_Image: {
         type: String,
-        required: true
+        // required: true
     },
     Name: {
         type: String,
