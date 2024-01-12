@@ -18,7 +18,7 @@ const { ObjectId } = require('mongoose').Types;
 const requiredFields = [
     'type',
     'zipCode',
-    'Profile_Image',
+    // 'Profile_Image',
     'Name',
     'email',
     'password',
