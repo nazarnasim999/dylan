@@ -34,7 +34,7 @@ const create_customer = async (req, res, next) => {
             Name,
             email,
             password,
-            Profile_Image,
+            // Profile_Image,
             Home_Address,
             zipCode,
 
@@ -52,7 +52,7 @@ const create_customer = async (req, res, next) => {
         const store_user_data = {
             type,
             Name,
-            Profile_Image,
+            // Profile_Image,
             email,
             password: secure_password,
             Home_Address,
