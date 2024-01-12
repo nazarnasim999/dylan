@@ -84,7 +84,7 @@ const create_customer = async (req, res, next) => {
             email,
             Name: Name,
             email: email,
-            Profile_Image: Profile_Image,
+            // Profile_Image: Profile_Image,
             user_id: user_dto._id,
 
         };
