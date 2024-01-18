@@ -1,8 +1,12 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
-const   Admin_Auth_Schema = mongoose.model('Admin', new Schema({
-    role: {
+const User_Auth_Schema = mongoose.model('user', new Schema({
+    first_name: {
+        type: String,
+        required: true
+    },
+    last_name: {
         type: String,
         required: true
     },
@@ -14,20 +18,19 @@ const   Admin_Auth_Schema = mongoose.model('Admin', new Schema({
         type: String,
         required: true
     },
-    Name: {
+    verified: {
+        type: Boolean,
+        default:false,
+        required:true
+    },
+    profile_image:{
         type: String,
         required: true
     }
-        ,
-    selected_queries: {
-        type: Array,
-        required: true
-    },
 
-
-
+          
 }, { timestamps: true }
 ))
 
 
-module.exports = { Admin_Auth_Schema }
+module.exports = { User_Auth_Schema }

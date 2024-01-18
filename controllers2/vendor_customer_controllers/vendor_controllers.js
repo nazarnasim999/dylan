@@ -118,7 +118,7 @@ const save_image = async (req, res, next) => {
         let vendor = await Vendor_Schema.findOne({ _id: userId });
 
 
-        console.log('lllllvendor' , userId);
+        console.log('lllll' , userId);
     
         // If the document doesn't exist, create a new one
        
@@ -135,6 +135,8 @@ const save_image = async (req, res, next) => {
         res.status(500).json({ error: 'Error saving image path to vendor table' });
       }
 }
+
+
 
 const login_vendor = async (req, res, next) => {
     const { body } = req;
@@ -217,14 +219,11 @@ const get_all_customers = async (req, res, next) => {
 }
 
 const get_matching_job = async (req, res, next) => {
-
-   
     const { query, vendorId } = req.body
     const find_user = await Vendor_Schema.findOne({_id:  vendorId });
     // const datas = find_user.zipCode;
     const datas = find_user.zipCode.toString();
     console.log(datas)
-
     try {
         const pipeline = [
             {
@@ -237,13 +236,11 @@ const get_matching_job = async (req, res, next) => {
                     selected_queries: { $all: [query] },
                 },
             },
-
             // {
             //                 $match: {
             //                     $or: [
             //                         { "jobs.zipcode": 2211 },
             //                         // { "jobs.zipcode": null },
-                                    
             //                     ],
             //                 },
             //             },
@@ -269,7 +266,6 @@ const get_matching_job = async (req, res, next) => {
                                 $or: [
                                     { "jobs.zipcode": datas},
                                     // { "jobs.zipcode": null },
-
                                 ],
                             },
                         },
@@ -294,18 +290,13 @@ const get_matching_job = async (req, res, next) => {
                                 "jobs.details": 1,
                                 "jobs.images": 1,
                                 "jobs.availablity_times": 1,
-                                "jobs.availablity_time": 1,
                                 "jobs.to_date": 1,
                                 "jobs.to_time": 1,
                                 "jobs.from_time": 1,
                                 "jobs.zipcode": 1,
-                                "jobs.emergency": 1,
-                                "jobs.note": 1,
                                 "jobs.Budget": 1,
+                                "jobs.emergency": 1,
                                 "jobs.createdAt": 1,
-                                "jobs._id": 1,
-                                "jobs.time1": 1,
-                                
                                 "userDetails.Name": 1,
                                 "userDetails.email": 1,
                                 "userDetails.Home_Address": 1,
@@ -317,7 +308,6 @@ const get_matching_job = async (req, res, next) => {
                 },
             },
         ];
-        
         // const pipeline = [
         //     {
         //         $match: {
@@ -342,7 +332,6 @@ const get_matching_job = async (req, res, next) => {
         //                         preserveNullAndEmptyArrays: true,
         //                     },
         //                 },
-
         //                 {
         //                     $addFields: {
         //                         overlapping_times: {
@@ -455,7 +444,6 @@ const get_matching_job = async (req, res, next) => {
         //     },
         // ]
         const resultVariable = await Vendor_Schema.aggregate([...pipeline,]);
-
         if (resultVariable.length === 0) {
             return res.status(404).json({
                 message: "No matching jobs found for the given query."
@@ -468,7 +456,6 @@ const get_matching_job = async (req, res, next) => {
     } catch (error) {
         return next(error);
     }
-
 }
 
 const create_vendor_gig = async (req, res) => {
@@ -701,4 +688,4 @@ const get_customers_recent_chats = async (req, res, next) => {
     }
 }
 
-module.exports = { create_vendor, save_image,login_vendor, get_all_customers, create_vendor_gig, get_vendor_git_by_id, get_vendor_profile_by_id, get_matching_job, get_customers_recent_chats }
+module.exports = { create_vendor ,save_image,login_vendor, get_all_customers, create_vendor_gig, get_vendor_git_by_id, get_vendor_profile_by_id, get_matching_job, get_customers_recent_chats }

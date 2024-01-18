@@ -18,11 +18,7 @@ const { ObjectId } = require('mongoose').Types;
 const requiredFields = [
     'type',
     'zipCode',
-
-    // TS work
     // 'Profile_Image',
-
-    // 
     'Name',
     'email',
     'password',
@@ -38,11 +34,7 @@ const create_customer = async (req, res, next) => {
             Name,
             email,
             password,
-
-            // TS work
             Profile_Image,
-
-            // 
             Home_Address,
             zipCode,
 
@@ -92,7 +84,7 @@ const create_customer = async (req, res, next) => {
             email,
             Name: Name,
             email: email,
-            // Profile_Image: Profile_Image,
+            Profile_Image: Profile_Image,
             user_id: user_dto._id,
 
         };
@@ -108,42 +100,6 @@ const create_customer = async (req, res, next) => {
         return next(error);
     }
 }
-
-
-// Ts work 
-const save_image1 = async (req, res, next) => {
-    try {
-        const { imagePath, userId } = req.body;
-        
-      
-    
-        // Find the document with the user ID in the create_vendor collection
-        let customer = await Customer_Schema.findOne({ _id: userId });
-        // let customer = await Customer_Schema.findOne({ _id: '658accf531fdde44bc3f16e1' });
-        
-        console.log('lllllTSCustomer' , userId);
-
-        // console.log('lllllTSCustomer' , '658accf531fdde44bc3f16e1');
-    
-        // If the document doesn't exist, create a new one
-       
-    
-        // Update the Profile_Image field with the image path
-        customer.Profile_Image = imagePath;
-    
-        // Save the document in the create_vendor collection
-        await customer.save();
-    
-        res.json({ message: 'Image path saved successfully' });
-      } catch (error) {
-        console.error('Error saving image path to customer table:', error);
-        res.status(500).json({ error: 'Error saving image path to customer table' });
-      }
-}
-// 
-
-
-
 
 const login_customer = async (req, res, next) => {
     const { body } = req;
@@ -226,7 +182,6 @@ const create_customer_job = async (req, res, next) => {
             available,
             zipcode,
             emergency,
-            note
         
 
 
@@ -236,12 +191,6 @@ const create_customer_job = async (req, res, next) => {
         } = body;
 
         const availabilities = available.map((item) => ({
-            date: item.date,
-            times: item.times,
-        }));
-
-
-        const availabilitie = available.map((item) => ({
             date: item.date,
             times: item.times,
         }));
@@ -261,17 +210,14 @@ const create_customer_job = async (req, res, next) => {
             // to_time,
             // from_time
            availablity_times: availabilities,
-           availablity_time: availabilitie,
            zipcode,
-        //    emergency:'emergencyts',
-        emergency,
-        note
+           emergency,
          
             
            
 
         };
-        console.log(store_user_data);
+
         const save_user = await Customer_Job_Schema.create({
             ...store_user_data,
         });
@@ -552,6 +498,26 @@ const get_customer_profile_by_id = async (req, res, next) => {
         return next(error);
     }
 }
+
+const save_image1 = async (req, res, next) => {
+    try {
+      const { imagePath, userId } = req.body;
+      // Find the document with the user ID in the create_vendor collection
+      let customer = await Customer_Schema.findOne({ _id: userId });
+      // let customer = await Customer_Schema.findOne({ _id: '658accf531fdde44bc3f16e1' });
+      console.log('lllllTSCustomer' , userId);
+      // console.log('lllllTSCustomer' , '658accf531fdde44bc3f16e1');
+      // If the document doesn't exist, create a new one
+      // Update the Profile_Image field with the image path
+      customer.Profile_Image = imagePath;
+      // Save the document in the create_vendor collection
+      await customer.save();
+      res.json({ message: 'Image path saved successfully' });
+     } catch (error) {
+      console.error('Error saving image path to customer table:', error);
+      res.status(500).json({ error: 'Error saving image path to customer table' });
+     }
+  }
 
 const get_vendors_recent_chats = async (req, res, next) => {
 

@@ -1,8 +1,17 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
-const   Admin_Auth_Schema = mongoose.model('Admin', new Schema({
-    role: {
+const Customer_Schema = mongoose.model('create_customer', new Schema({
+
+    type: {
+        type: String,
+        required: true
+    },
+    Profile_Image: {
+        type: String,
+        // required: true
+    },
+    Name: {
         type: String,
         required: true
     },
@@ -14,20 +23,18 @@ const   Admin_Auth_Schema = mongoose.model('Admin', new Schema({
         type: String,
         required: true
     },
-    Name: {
+    Home_Address: {
         type: String,
         required: true
-    }
-        ,
-    selected_queries: {
-        type: Array,
+    },
+    zipCode: {
+        type: Number,
         required: true
     },
-
-
+    
 
 }, { timestamps: true }
 ))
 
 
-module.exports = { Admin_Auth_Schema }
+module.exports = { Customer_Schema }

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
-const   Admin_Auth_Schema = mongoose.model('Admin', new Schema({
+const Admin_Auth_Schema = mongoose.model('Admin', new Schema({
     role: {
         type: String,
         required: true
@@ -18,13 +18,6 @@ const   Admin_Auth_Schema = mongoose.model('Admin', new Schema({
         type: String,
         required: true
     }
-        ,
-    selected_queries: {
-        type: Array,
-        required: true
-    },
-
-
 
 }, { timestamps: true }
 ))

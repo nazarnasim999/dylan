@@ -1,10 +1,6 @@
 const Schedule = require("../../models/schedule.model");
 const Makepayments = require("../../models/payments.model");
 
-const { Customer_Job_Schema } = require("../../models/customer_job_model");
-
-
-
 const { ObjectId } = require('mongodb');
 
 
@@ -12,7 +8,7 @@ const { ObjectId } = require('mongodb');
 
 // Vendor creates a schedule
 const createSchedule = async (req, res) => {
-    var {
+    const {
         vendorId,
         customerId,
         customerJobDetails,
@@ -21,38 +17,8 @@ const createSchedule = async (req, res) => {
         status,
         time,
         date,
-        Paystatus,
-        time0,
-        time1,
-        time2,
-
-        jobId
-
-
-
-
+        Paystatus
     } = req.body;
-
-    console.log(jobId,"shedulecreatedadasddas")
-
-    // var i =req.body.index
-
-    // if(req.body.index==0)
-    // {
-    //     time0=0
-    // }
-    // else if(req.body.index==1)
-    // {
-    //     time1=1
-    // }
-    // else{
-    //     time2=2
-    // }
-
-    time1=req.body.index
-
-
-   
 
     try {
         // Check if there is an existing schedule for the customer
@@ -66,46 +32,6 @@ const createSchedule = async (req, res) => {
 
         // If no existing schedule, create a new one
 
-        // const customerJob = await Customer_Job_Schema.findOne({ _id: jobId })
-
-        
-        //     if (customerJob) 
-        //     {
-        //         console.log(customerJob,"id found")
-        //         await Customer_Job_Schema.create({
-        //             time1
-                    
-        //         });
-        //     }
-        
-
-        const customerJob = await Customer_Job_Schema.findOne({ _id: jobId });
-
-        if (customerJob) {
-            console.log(customerJob, "id found");
-        
-            // Update the existing record with the new time1 value
-            await Customer_Job_Schema.updateOne(
-                { _id: jobId },
-                // { $set: { time1: time1} }
-                { $pull: { availablity_time: { date: customerJob.availablity_time[time1].date } } }
-            );
-        
-            console.log(`Successfully updated time1 attribute for _id ${jobId}`);
-        } 
-        else {
-            console.log(`No record found for _id ${jobId}`);
-        }
-
-      
-
-        // const save_time = await Customer_Job_Schema.create({
-        //     time1
-            
-        // });
-    
-
-
         const newSchedule = await Schedule.create({
             vendorId,
             customerId,
@@ -115,8 +41,7 @@ const createSchedule = async (req, res) => {
             status,
             time,
             date,
-            Paystatus,
-
+            Paystatus
         });
 
         return res.json({

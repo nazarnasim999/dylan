@@ -1,33 +1,33 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
-const   Admin_Auth_Schema = mongoose.model('Admin', new Schema({
-    role: {
+const Vendor_Gig_Schema = mongoose.model('create_gig', new Schema({
+
+    vender_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    },
+    gig_title: {
         type: String,
         required: true
     },
-    email: {
+    gig_discription: {
         type: String,
         required: true
     },
-    password: {
+    gig_image: {
         type: String,
         required: true
     },
-    Name: {
-        type: String,
-        required: true
-    }
-        ,
-    selected_queries: {
+    keywords: {
         type: Array,
         required: true
     },
-
+    
 
 
 }, { timestamps: true }
 ))
 
 
-module.exports = { Admin_Auth_Schema }
+module.exports = { Vendor_Gig_Schema }

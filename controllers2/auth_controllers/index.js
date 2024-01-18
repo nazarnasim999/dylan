@@ -11,10 +11,6 @@ const {
 } = require("../../utils/email_transport_config");
 const verifyEmailSchema = require("../../models/verification/verifyEmailTokenSchema");
 
-const { Customer_Schema } = require("../../models/customer_model");
-const { Vendor_Schema } = require("../../models/vendor_model");
-const { Admin_Auth_Schema } = require("../../models/admin_auth_model copy");
-
 const register_user = async (req, res, next) => {
   const { body, user_id } = req;
   try {
@@ -161,11 +157,9 @@ const check_auth_controller = async (req, res, next) => {
 const reset_user_password_request = async (req, res, next) => {
   const { email } = req.body;
 
-  console.log(email,"EMAILLL");
-
   try {
-    const find_user = await Customer_Schema.findOne({ email }).select(
-      
+    const find_user = await User_Auth_Schema.findOne({ email }).select(
+      "-password"
     );
 
     if (!find_user) {
@@ -195,7 +189,7 @@ const verify_reset_password_OTP = async (req, res, next) => {
   const { email, otp } = req.body;
 
   try {
-    const find_user = await Customer_Schema.findOne({ email }).select(
+    const find_user = await User_Auth_Schema.findOne({ email }).select(
       "-password"
     );
 
@@ -235,7 +229,7 @@ const verify_OTP_and_create_password = async (req, res, next) => {
   const { email, otp, newPassword, confirmPassword } = req.body;
 
   try {
-    const find_user = await Customer_Schema.findOne({ email }).select(
+    const find_user = await User_Auth_Schema.findOne({ email }).select(
       "-password"
     );
 
@@ -275,7 +269,7 @@ const verify_OTP_and_create_password = async (req, res, next) => {
       newPassword
     );
 
-    const updated_pass = await Customer_Schema.findByIdAndUpdate(
+    const updated_pass = await User_Auth_Schema.findByIdAndUpdate(
       find_user.id,
       { password: updated_password },
       { new: true }
@@ -290,302 +284,6 @@ const verify_OTP_and_create_password = async (req, res, next) => {
     return next(error);
   }
 };
-
-
-
-
-
-
-
-
-
-
-// vendor 
-
-const reset_user_password_requestv = async (req, res, next) => {
-  const { email } = req.body;
-
-  console.log(email,"EMAILLL");
-
-  try {
-    const find_user = await Vendor_Schema.findOne({ email }).select(
-      
-    );
-
-    if (!find_user) {
-      return res
-        .status(401)
-        .send({ success: false, message: "No user found!" });
-    }
-    const OTP = generateOtp();
-    console.log(OTP);
-    await reset_password_email(email, OTP);
-    const varificationtoken = await verifyEmailSchema.create({
-      user: find_user._id,
-      OTP: OTP,
-    });
-
-    return res.json({
-      success: true,
-      message: "Email successfully sent with verification OTP!",
-      data: email,
-    });
-  } catch (error) {
-    return next(error);
-  }
-};
-
-const verify_reset_password_OTPv = async (req, res, next) => {
-  const { email, otp } = req.body;
-
-  try {
-    const find_user = await Vendor_Schema.findOne({ email }).select(
-      "-password"
-    );
-
-    if (!find_user) {
-      return res
-        .status(401)
-        .send({ success: false, message: "No user found!" });
-    }
-
-    const find_token = await verifyEmailSchema.findOne({
-      user: find_user._id,
-      OTP: otp.toString(),
-    });
-
-    if (!find_token) {
-      return res
-        .status(401)
-        .send({ success: false, message: "Invalid OTP or email!" });
-    }
-
-    let obj = {
-      email,
-      otp,
-    };
-    // await verifyEmailModel.findByIdAndDelete(find_token.id)
-    return res.json({
-      success: true,
-      message: "OTP Successfully verified!",
-      data: obj,
-    });
-  } catch (error) {
-    return next(error);
-  }
-};
-
-const verify_OTP_and_create_passwordv = async (req, res, next) => {
-  const { email, otp, newPassword, confirmPassword } = req.body;
-
-  try {
-    const find_user = await Vendor_Schema.findOne({ email }).select(
-      "-password"
-    );
-
-    if (!find_user) {
-      return res
-        .status(401)
-        .send({ success: false, message: "No user found!" });
-    }
-
-    if (!newPassword || !confirmPassword) {
-      return res
-        .status(400)
-        .json({ success: false, message: "All fields are required!" });
-    }
-    const find_token = await verifyEmailSchema.findOne({
-      user: find_user._id,
-      OTP: otp.toString(),
-    });
-
-    if (!find_token) {
-      return res
-        .status(401)
-        .send({ success: false, message: "Invalid OTP or email!" });
-    }
-
-    if (newPassword !== confirmPassword) {
-      return res.status(400).json({
-        success: false,
-        message: "new password and confirm password are not same!",
-      });
-    }
-
-    // const salt = await bcrypt.genSalt(10)
-    // const secPass = await bcrypt.hash(newPassword, salt)
-
-    const updated_password = await Bcrypt_Service.bcrypt_hash_password(
-      newPassword
-    );
-
-    const updated_pass = await Vendor_Schema.findByIdAndUpdate(
-      find_user.id,
-      { password: updated_password },
-      { new: true }
-    );
-    await verifyEmailSchema.findByIdAndDelete(find_token.id);
-
-    return res.json({
-      success: true,
-      message: "Password successfully updated!",
-    });
-  } catch (error) {
-    return next(error);
-  }
-};
-
-
-// 
-
-
-
-
-// expert
-const reset_user_password_requeste = async (req, res, next) => {
-  const { email } = req.body;
-
-  console.log(email,"EMAILLL");
-
-  try {
-    const find_user = await Admin_Auth_Schema.findOne({ email }).select(
-      
-    );
-
-    if (!find_user) {
-      return res
-        .status(401)
-        .send({ success: false, message: "No user found!" });
-    }
-    const OTP = generateOtp();
-    console.log(OTP);
-    await reset_password_email(email, OTP);
-    const varificationtoken = await verifyEmailSchema.create({
-      user: find_user._id,
-      OTP: OTP,
-    });
-
-    return res.json({
-      success: true,
-      message: "Email successfully sent with verification OTP!",
-      data: email,
-    });
-  } catch (error) {
-    return next(error);
-  }
-};
-
-const verify_reset_password_OTPe = async (req, res, next) => {
-  const { email, otp } = req.body;
-
-  try {
-    const find_user = await Admin_Auth_Schema.findOne({ email }).select(
-      "-password"
-    );
-
-    if (!find_user) {
-      return res
-        .status(401)
-        .send({ success: false, message: "No user found!" });
-    }
-
-    const find_token = await verifyEmailSchema.findOne({
-      user: find_user._id,
-      OTP: otp.toString(),
-    });
-
-    if (!find_token) {
-      return res
-        .status(401)
-        .send({ success: false, message: "Invalid OTP or email!" });
-    }
-
-    let obj = {
-      email,
-      otp,
-    };
-    // await verifyEmailModel.findByIdAndDelete(find_token.id)
-    return res.json({
-      success: true,
-      message: "OTP Successfully verified!",
-      data: obj,
-    });
-  } catch (error) {
-    return next(error);
-  }
-};
-
-const verify_OTP_and_create_passworde = async (req, res, next) => {
-  const { email, otp, newPassword, confirmPassword } = req.body;
-
-  try {
-    const find_user = await Admin_Auth_Schema.findOne({ email }).select(
-      "-password"
-    );
-
-    if (!find_user) {
-      return res
-        .status(401)
-        .send({ success: false, message: "No user found!" });
-    }
-
-    if (!newPassword || !confirmPassword) {
-      return res
-        .status(400)
-        .json({ success: false, message: "All fields are required!" });
-    }
-    const find_token = await verifyEmailSchema.findOne({
-      user: find_user._id,
-      OTP: otp.toString(),
-    });
-
-    if (!find_token) {
-      return res
-        .status(401)
-        .send({ success: false, message: "Invalid OTP or email!" });
-    }
-
-    if (newPassword !== confirmPassword) {
-      return res.status(400).json({
-        success: false,
-        message: "new password and confirm password are not same!",
-      });
-    }
-
-    // const salt = await bcrypt.genSalt(10)
-    // const secPass = await bcrypt.hash(newPassword, salt)
-
-    const updated_password = await Bcrypt_Service.bcrypt_hash_password(
-      newPassword
-    );
-
-    const updated_pass = await Admin_Auth_Schema.findByIdAndUpdate(
-      find_user.id,
-      { password: updated_password },
-      { new: true }
-    );
-    await verifyEmailSchema.findByIdAndDelete(find_token.id);
-
-    return res.json({
-      success: true,
-      message: "Password successfully updated!",
-    });
-  } catch (error) {
-    return next(error);
-  }
-};
-
-// 
-
-
-
-
-
-
-
-
-
-
 
 const renew_token_controller = async (req, res) => {
   const { user_data, user_id, token_id } = req;
@@ -626,20 +324,8 @@ module.exports = {
   check_auth_controller,
   renew_token_controller,
   logout_controller,
-
   reset_user_password_request,
   verify_OTP_and_create_password,
   verify_reset_password_OTP,
-
-
-  reset_user_password_requestv,
-  verify_OTP_and_create_passwordv,
-  verify_reset_password_OTPv,
-
-
-
-  reset_user_password_requeste,
-  verify_OTP_and_create_passworde,
-  verify_reset_password_OTPe,
 
 };

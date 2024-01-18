@@ -10,18 +10,6 @@ const scheduleSchema = new mongoose.Schema({
     time: { type: String, required: true },
     date: { type: String, required: true },
 
-
-    time0: { type: Number , 
-        // required: true 
-    },
-    time1: { type: Number ,
-        //  required: true 
-        },
-    time2:{ type: Number , 
-        // required: true 
-    },
-
-
     status: { type: String, enum: ['pending', 'accepted', 'rejected'], default: 'pending' },
     Paystatus: { type: String, enum: ['unPaid', 'Paid', ,'Payment Created'], default: 'unPaid' },
     createdAt: { type: Date, default: Date.now },

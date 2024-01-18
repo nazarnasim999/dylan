@@ -41,10 +41,7 @@ const Vendor_Schema = mongoose.model('create_vendor', new Schema({
         type: Number,
         required: true
     },
-   
-        
 
-    
 
 
 }, { timestamps: true }

@@ -3,7 +3,6 @@ const Req_Session = require("../../models/req_session_model");
 
 const talk_to_expert = async (req, res) => {
     const { body } = req;
-    console.log(body,"expertbodyy")
     try {
         const req_Session = await Req_Session.create({ ...body })
         return res.status(200).send({ message: "Session created successfully", success: true })

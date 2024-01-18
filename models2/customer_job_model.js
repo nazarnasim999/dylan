@@ -5,48 +5,34 @@ const timeSchema = new Schema({
     date: { type: String, required: true },
     times: { type: [String], required: true },
 });
-
-
-const time0Schema = new Schema({
-    date: { type: String, required: true },
-    times: { type: [String], required: true },
-});
-
-const time1Schema = new Schema({
-   
-    time1: { type: [Number]},
-});
 const Customer_Job_Schema = mongoose.model('create_customer_job', new Schema({
 
     type: {
         type: String,
-        // required: true
+        required: true
     },
     selected_queries: {
         type: String,
-        // required: true
+        required: true
     },
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
-        // required: true
+        required: true
     },
     details: {
         type: String,
-        // required: true
-    },
-    zipcode: {
-        type: String,
-        // required: true
-    },
-    emergency: {
-        type: String,
-        // required: true
+        required: true
     },
 
-    note: {
+    zipcode: {
         type: String,
-        // required: true
+        required: true
     },
+
+    emergency: {
+        type: String,
+        
+      },
 
     // to_date: { type: String, required: true },
     // to_time: { type: String, required: true },
@@ -64,7 +50,7 @@ const Customer_Job_Schema = mongoose.model('create_customer_job', new Schema({
     // },
     location: {
         type: String,
-        // required: true
+        required: true
     },
 
     // title: {
@@ -73,30 +59,21 @@ const Customer_Job_Schema = mongoose.model('create_customer_job', new Schema({
     // },
     images: {
         type: Array,
-        // required: true
+        required: true
     },
 
    
     vendor_level: {
-        // type: String,
+        type: String,
        
     },
     availablity_times: {
         type: [timeSchema], // Array of dates with times
     },
-
-
-    availablity_time: {
-        type: [time0Schema], // Array of dates with times
-    },
     Budget: {
         type: Number,
         
     },
-    time1: { 
-        type: [time1Schema],
-        //  required: true 
-        }
 
 
 }, { timestamps: true }

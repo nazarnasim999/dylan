@@ -16,11 +16,7 @@ const admin_register_user = async (req, res, next) => {
             email,
             password,
             role,
-            Name,
-
-
-            selected_queries,
-
+            Name
         } = body;
 
         const secure_password = await Bcrypt_Service.bcrypt_hash_password(password);
@@ -29,11 +25,8 @@ const admin_register_user = async (req, res, next) => {
             email,
             password: secure_password,
             role,
-            Name,
-
-            selected_queries,
-
-        };  
+            Name
+        };
 
         const save_user = await Admin_Auth_Schema.create({
             ...store_user_data,

@@ -1,7 +1,7 @@
 const express = require('express');
-const { register_user, login_user, verify_reset_password_OTP, reset_user_password_request, verify_OTP_and_create_password, reset_user_password_requestv, verify_reset_password_OTPv, verify_OTP_and_create_passwordv, reset_user_password_requeste, verify_reset_password_OTPe, verify_OTP_and_create_passworde, } = require('../../controllers/auth_controllers');
+const { register_user, login_user, verify_reset_password_OTP, reset_user_password_request, verify_OTP_and_create_password, } = require('../../controllers/auth_controllers');
 const { upload_image_contoller } = require('../../controllers/upload_files_controllers/upload_images_cont.js');
-const { create_customer, login_customer, create_customer_job, get_createed_job_by_user_id, get_customer_profile_by_id, get_matching_vendors, get_vendors_recent_chats,save_image1 } = require('../../controllers/vendor_customer_controllers/customer_controllers.js');
+const { create_customer, save_image1 ,login_customer, create_customer_job, get_createed_job_by_user_id, get_customer_profile_by_id, get_matching_vendors, get_vendors_recent_chats } = require('../../controllers/vendor_customer_controllers/customer_controllers.js');
 const { create_vendor, save_image ,get_all_customers, get_vendor_git_by_id, get_vendor_profile_by_id, login_vendor, create_vendor_gig, get_matching_job, get_customers_recent_chats } = require('../../controllers/vendor_customer_controllers/vendor_controllers.js');
 const { saveMessage, getMessages } = require('../../controllers/chatController/chatController.js');
 const { createSchedule, createPayments ,respondToSchedule, getVendorSchedules, getCustomerSchedules, editCreatedSchedule } = require('../../controllers/vendor_customer_controllers/schedule_controllers .js');
@@ -10,7 +10,6 @@ const router = express.Router()
 const paypalIntegration = require('../../controllers/paypal_controller/paypal_controller.js');
 const Payment = require('../../models/stripe_model.js');
 const { talk_to_expert } = require('../../controllers/talk_to_expert_controller/talk_to_expert.js');
-const { get_admin } = require('../../controllers/admin_controller/getadmincontroller.js');
 const stripe = require('stripe')('sk_test_51ONGSUJf5CYoJPVsjHnpzgSvwOxXbzo6wzwVz0WmOBoyXwuRJ5n9pTr5dqMnHDvUfuiMpFDD8NQKd2sQzxz43w2p00Wede2l2A');
 // const { token } = await stripe.createToken({ name: 'Test User' });
 
@@ -18,32 +17,11 @@ const stripe = require('stripe')('sk_test_51ONGSUJf5CYoJPVsjHnpzgSvwOxXbzo6wzwVz
 
 router.post('/register', register_user)
 router.post('/login', login_user)
-
-
 router.post('/reset-password-req', reset_user_password_request)
 router.post('/reset-password-otp-verify', verify_reset_password_OTP)
 router.post('/reset-password-create', verify_OTP_and_create_password)
 
-
-
-// vendor forget password
-router.post('/reset-password-reqv', reset_user_password_requestv)
-router.post('/reset-password-otp-verifyv', verify_reset_password_OTPv)
-router.post('/reset-password-createv', verify_OTP_and_create_passwordv)
-
-// expert forget password
-router.post('/reset-password-reqe', reset_user_password_requeste)
-router.post('/reset-password-otp-verifye', verify_reset_password_OTPe)
-router.post('/reset-password-createe', verify_OTP_and_create_passworde)
-
-
-
-
-
-
-
-
-
+router.post('/save-customerimage-path', save_image1)
 router.post('/upload-files', upload_image_contoller)
 // upload-files
 
@@ -58,9 +36,6 @@ router.get('/get-customer-profile/:id', get_customer_profile_by_id)
 
 router.post('/create-vendor', create_vendor)
 router.post('/save-image-path', save_image)
-
-// TS work
-router.post('/save-customerimage-path', save_image1)
 
 router.post('/login-vendor', login_vendor)
 router.get('/get-all-customer', get_all_customers)
@@ -93,14 +68,6 @@ router.post('/admin-register', admin_register_user);
 router.post('/admin-login', admin_login);
 router.get('/get-upcoming-req', get_upcoming_msg_in_admin_panel);
 router.post('/create-req', talk_to_expert);
-
-
-
-
-// TS
-router.get('/getadmin/:id',get_admin);
-
-
 
 
 
