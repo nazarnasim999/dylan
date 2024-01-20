@@ -2,7 +2,7 @@ const express = require('express');
 const { register_user, login_user, verify_reset_password_OTP, reset_user_password_request, verify_OTP_and_create_password, reset_user_password_requestv, verify_reset_password_OTPv, verify_OTP_and_create_passwordv, reset_user_password_requeste, verify_reset_password_OTPe, verify_OTP_and_create_passworde, } = require('../../controllers/auth_controllers');
 const { upload_image_contoller } = require('../../controllers/upload_files_controllers/upload_images_cont.js');
 const { create_customer, login_customer, create_customer_job, get_createed_job_by_user_id, get_customer_profile_by_id, get_matching_vendors, get_vendors_recent_chats,save_image1 } = require('../../controllers/vendor_customer_controllers/customer_controllers.js');
-const { create_vendor, save_image ,get_all_customers, get_vendor_git_by_id, get_vendor_profile_by_id, login_vendor, create_vendor_gig, get_matching_job, get_customers_recent_chats } = require('../../controllers/vendor_customer_controllers/vendor_controllers.js');
+const { create_vendor, save_image ,get_all_customers, get_vendor_git_by_id, get_vendor_profile_by_id, login_vendor, create_vendor_gig, get_matching_job, get_customers_recent_chats, delete_vendor_gig } = require('../../controllers/vendor_customer_controllers/vendor_controllers.js');
 const { saveMessage, getMessages } = require('../../controllers/chatController/chatController.js');
 const { createSchedule, createPayments ,respondToSchedule, getVendorSchedules, getCustomerSchedules, editCreatedSchedule } = require('../../controllers/vendor_customer_controllers/schedule_controllers .js');
 const { admin_register_user, admin_login, get_upcoming_msg_in_admin_panel } = require('../../controllers/admin_controller/admin_controller.js');
@@ -65,6 +65,11 @@ router.post('/save-customerimage-path', save_image1)
 router.post('/login-vendor', login_vendor)
 router.get('/get-all-customer', get_all_customers)
 router.post('/create-vendor-gig', create_vendor_gig)
+
+router.post('/delete-vendor-gig', delete_vendor_gig)
+
+
+
 
 router.post('/get-gig-by-id', get_vendor_git_by_id)
 router.post('/get-all-matching-vendors', get_matching_vendors)

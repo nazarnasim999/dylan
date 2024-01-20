@@ -471,6 +471,27 @@ const get_matching_job = async (req, res, next) => {
 
 }
 
+const delete_vendor_gig = async (req, res, next) => {
+    const { _id } = await req.body; // Assuming the _id is passed in the request body
+    console.log(req,"tsid" );
+    console.log(_id,"tsgdfgfdid" );
+    try {
+        // Validate the ID format (optional)
+        // Find and delete the record
+        const deletedRecord = await Vendor_Gig_Schema.findByIdAndDelete(_id);
+        if (!deletedRecord) {
+            return res.status(404).json({ message: 'Record not found' });
+        }
+        return res.json({
+            message: 'Record deleted successfully',
+            deletedRecord,
+        });
+    } catch (error) {
+        return next(error);
+    }
+};
+
+
 const create_vendor_gig = async (req, res) => {
     const { body } = req;
     try {
@@ -701,4 +722,4 @@ const get_customers_recent_chats = async (req, res, next) => {
     }
 }
 
-module.exports = { create_vendor, save_image,login_vendor, get_all_customers, create_vendor_gig, get_vendor_git_by_id, get_vendor_profile_by_id, get_matching_job, get_customers_recent_chats }
+module.exports = { create_vendor, save_image,login_vendor,delete_vendor_gig, get_all_customers, create_vendor_gig, get_vendor_git_by_id, get_vendor_profile_by_id, get_matching_job, get_customers_recent_chats }
