@@ -527,6 +527,100 @@ const create_vendor_gig = async (req, res) => {
     }
 }
 
+
+
+const create_expert_gig = async (req, res) => {
+    const { body } = req;
+    try {
+        const {
+            vender_id,
+            gig_title,
+            gig_discription,
+            gig_image,
+            keywords,
+        } = body;
+        const store_user_data = {
+            vender_id,
+            gig_title,
+            gig_discription,
+            gig_image,
+            keywords
+        };
+        const save_user = await Expert_Gig_Schema.create({
+            ...store_user_data,
+        });
+        return res.json({
+            message: "Successfully Created",
+            data: save_user
+        });
+    } catch (error) {
+        return next(error);
+    }
+}
+
+
+
+const delete_expert_gig = async (req, res, next) => {
+    const { _id } = await req.body; // Assuming the _id is passed in the request body
+    console.log(req,"tsid" );
+    console.log(_id,"tsgdfgfdid" );
+    try {
+        // Validate the ID format (optional)
+        // Find and delete the record
+        const deletedRecord = await Expert_Gig_Schema.findByIdAndDelete(_id);
+        if (!deletedRecord) {
+            return res.status(404).json({ message: 'Record not found' });
+        }
+        return res.json({
+            message: 'Record deleted successfully',
+            deletedRecord,
+        });
+    } catch (error) {
+        return next(error);
+    }
+};
+
+
+const get_expert_gig_by_id = async (req, res, next) => {
+    const { vender_id } = req.body;
+    try {
+        const resultVariable = await Expert_Gig_Schema.find({ vender_id: vender_id })
+        return res.json({
+            message: "Get Successfully",
+            data: resultVariable
+        });
+    } catch (error) {
+        return next(error);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const get_vendor_git_by_id = async (req, res, next) => {
     const { vender_id } = req.body;
     try {
@@ -722,4 +816,4 @@ const get_customers_recent_chats = async (req, res, next) => {
     }
 }
 
-module.exports = { create_vendor, save_image,login_vendor,delete_vendor_gig, get_all_customers, create_vendor_gig, get_vendor_git_by_id, get_vendor_profile_by_id, get_matching_job, get_customers_recent_chats }
+module.exports = { create_vendor,get_expert_gig_by_id,delete_expert_gig, create_expert_gig, save_image,login_vendor,delete_vendor_gig, get_all_customers, create_vendor_gig, get_vendor_git_by_id, get_vendor_profile_by_id, get_matching_job, get_customers_recent_chats }
