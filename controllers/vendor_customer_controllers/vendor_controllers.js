@@ -1,6 +1,7 @@
 const Auth_Token_DTO = require("../../dto/auth_tokens_dto");
 const User_DTO = require("../../dto/user_dto");
 const { Customer_Schema } = require("../../models/customer_model");
+const { Expert_Gig_Schema } = require("../../models/expert_gig_model");
 const Message = require("../../models/messageModel");
 const { User_Tokens_Schema } = require("../../models/user_tokens_model");
 const { Vendor_Gig_Schema } = require("../../models/vendor_gig_model");
