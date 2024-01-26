@@ -41,7 +41,10 @@ const Vendor_Schema = mongoose.model('create_vendor', new Schema({
         type: Number,
         required: true
     },
-   
+    phoneno:{
+        type: Number,
+        required: true
+    }
         
 
     

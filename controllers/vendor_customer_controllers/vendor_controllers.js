@@ -39,7 +39,8 @@ const create_vendor = async (req, res, next) => {
             password,
             // experience,
             Home_Address,
-            zipCode
+            zipCode,
+            phoneno
 
 
         } = body;
@@ -63,7 +64,8 @@ const create_vendor = async (req, res, next) => {
             password: secure_password,
             // experience,
             Home_Address,
-            zipCode
+            zipCode,
+            phoneno
 
 
         };
@@ -253,7 +255,7 @@ const get_matching_job = async (req, res, next) => {
                     jobs: [
                         {
                             $lookup: {
-                                from: "create_customer_jobs",
+                                from: "create_customer_jobs",   
                                 localField: "selected_queries",
                                 foreignField: "selected_queries",
                                 as: "jobs",
