@@ -2,14 +2,14 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 const timeSchema = new Schema({
-    date: { type: String, required: true },
-    times: { type: [String], required: true },
+    date: { type: String },
+    times: { type: [String] },
 });
 
 
 const time0Schema = new Schema({
-    date: { type: String, required: true },
-    times: { type: [String], required: true },
+    date: { type: String },
+    times: { type: [String] },
 });
 
 const time1Schema = new Schema({
