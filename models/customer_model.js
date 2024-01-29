@@ -31,6 +31,10 @@ const Customer_Schema = mongoose.model('create_customer', new Schema({
         type: Number,
         required: true
     },
+    phoneno: {
+        type: Number,
+        required: true
+    },
     
 
 }, { timestamps: true }

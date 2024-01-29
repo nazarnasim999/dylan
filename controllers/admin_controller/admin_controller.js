@@ -20,6 +20,7 @@ const admin_register_user = async (req, res, next) => {
 
 
             selected_queries,
+            phoneno
 
         } = body;
 
@@ -32,6 +33,7 @@ const admin_register_user = async (req, res, next) => {
             Name,
 
             selected_queries,
+            phoneno
 
         };  
 

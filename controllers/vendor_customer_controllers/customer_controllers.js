@@ -45,6 +45,7 @@ const create_customer = async (req, res, next) => {
             // 
             Home_Address,
             zipCode,
+            phoneno
 
         } = body;
 
@@ -65,6 +66,7 @@ const create_customer = async (req, res, next) => {
             password: secure_password,
             Home_Address,
             zipCode,
+            phoneno
 
         };
 
@@ -208,6 +210,87 @@ const login_customer = async (req, res, next) => {
     }
 }
 
+// const create_customer_job = async (req, res, next) => {
+ 
+//     const { body } = req
+//     try {
+//         const {
+//             type,
+//             selected_queries,
+//             user_id,
+//             details,
+//             images,
+//             // title,
+//             location,
+//             // to_date,
+//             // to_time,
+//             // from_time
+//             available,
+//             zipcode,
+//             emergency,
+//             note
+        
+
+
+            
+           
+           
+//         } = body;
+
+//         const availabilities = available.map((item) => ({
+//             date: item.date,
+//             times: item.times,
+//         }));
+
+
+//         const availabilitie = available.map((item) => ({
+//             date: item.date,
+//             times: item.times,
+//         }));
+
+        
+
+
+//         const store_user_data = {
+//             type,
+//             selected_queries,
+//             user_id: new ObjectId(user_id),
+//             details,
+//             images,
+//             // title,
+//             location,
+//             // to_date, 
+//             // to_time,
+//             // from_time
+//            availablity_times: availabilities,
+//            availablity_time: availabilitie,
+//            zipcode,
+//         //    emergency:'emergencyts',
+//         emergency,
+//         note
+         
+            
+           
+
+//         };
+//         console.log(store_user_data);
+//         const save_user = await Customer_Job_Schema.create({
+//             ...store_user_data,
+//         });
+
+//         return res.json({
+//             message: "Create Successfully",
+//             data: save_user,
+//         });
+//     } catch (error) {
+//         return next(error);
+//     }
+// }
+
+
+
+
+
 const create_customer_job = async (req, res, next) => {
  
     const { body } = req
@@ -235,16 +318,32 @@ const create_customer_job = async (req, res, next) => {
            
         } = body;
 
-        const availabilities = available.map((item) => ({
-            date: item.date,
-            times: item.times,
-        }));
 
 
-        const availabilitie = available.map((item) => ({
-            date: item.date,
-            times: item.times,
-        }));
+        // const availabilities = available.map((item) => ({
+        //     date: item.date,
+        //     times: item.times,
+        // }));
+
+
+        // const availabilitie = available.map((item) => ({
+        //     date: item.date,
+        //     times: item.times,
+        // }));
+
+
+
+ // Check if 'available' array has elements
+ const availabilities = available && available.length > 0
+ ? available.map(item => ({ date: item.date || "2000-01-01", times: item.times }))
+ : [{ date: "2000-01-01", times: [] }];  // Default value if 'available' is empty or undefined
+
+// Check if 'availabilitie' array has elements
+const availabilitie = available && available.length > 0
+ ? available.map(item => ({ date: item.date || "2000-01-01", times: item.times }))
+ : [{ date: "2000-01-01", times: [] }];  // Default value if 'available' is empty or undefined
+
+
 
         
 
@@ -272,6 +371,86 @@ const create_customer_job = async (req, res, next) => {
 
         };
         console.log(store_user_data);
+
+
+
+        
+            // const database = client.db('yourDatabaseName'); // Replace with your database name
+            // const collection = database.collection('Vendor_Schema'); // Replace with your collection name
+
+            // Build the query to filter based on 'zipcode' and 'selected_queries'
+            const query = {
+                "zipCode": zipcode,
+                "selected_queries": selected_queries
+            };
+
+            // Use the find method with the query
+            const result = await Vendor_Schema.find(query).select('email').exec();
+
+            // You can now use the 'result' array as needed
+
+            // Example: Log the result
+            console.log(result,"mAtched vendors");
+
+
+
+                                                // Create a Nodemailer transporter
+                                    const transporter = nodemailer.createTransport({
+                                        host: "sandbox.smtp.mailtrap.io",
+                                        port: 2525,
+                                        auth: {
+                                            user: "08ea1ab2a87a09",
+                                            pass: "54599b10270c2a"
+                                        }
+                                    });
+
+            let i=0;
+            for(i =0; i<=result.length-1; i++)
+
+            {       
+                const {email} =result[i];
+                console.log({email},"TSTSTS")
+
+
+
+                // Define the email options
+                        const mailOptions = {
+                            from: 'talhadeveloper7@gmail.com 📧 Dylan', // Replace with your email address
+                            to: email, // Convert the array of emails to a comma-separated string
+                            subject: 'HONEST HOME HUB NEW JOB ALERT',
+                            text: 'Your Email Body TS'
+                        };
+
+
+                        // Send the email
+                                    transporter.sendMail(mailOptions, (error, info) => {
+                                        if (error) {
+                                            console.error('Error sending email:', error);
+                                            return res.status(500).json({ error: 'Error sending email' });
+                                        }
+
+                                        console.log('Email sent:', info.response);
+                                        return res.json({
+                                            message: "Emails Sent Successfully",
+                                            data: result
+                                        });
+
+                                    });
+
+            }
+
+        
+
+            
+
+
+
+
+
+
+        
+
+
         const save_user = await Customer_Job_Schema.create({
             ...store_user_data,
         });
@@ -284,6 +463,7 @@ const create_customer_job = async (req, res, next) => {
         return next(error);
     }
 }
+
 
 const get_createed_job_by_user_id = async (req, res, next) => {
 

@@ -23,6 +23,10 @@ const   Admin_Auth_Schema = mongoose.model('Admin', new Schema({
         type: Array,
         required: true
     },
+    phoneno: {
+        type: Number,
+        required: true
+    },
 
 
 
