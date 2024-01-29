@@ -12,7 +12,8 @@ const { JWT_Generate_Token_Handle } = require("../../services/jwt_services");
 // const { ObjectId } = require('mongodb');
 const { ObjectId } = require('mongoose').Types;
 
-
+const nodemailer = require("nodemailer");
+require("dotenv").config();
 
 
 const requiredFields = [
