@@ -7,6 +7,8 @@ const { Bcrypt_Service } = require("../../services/bcrypt_services");
 const { JWT_Generate_Token_Handle } = require("../../services/jwt_services");
 const { ObjectId } = require('mongodb');
 
+const nodemailer = require("nodemailer");
+require("dotenv").config();
 
 
 const admin_register_user = async (req, res, next) => {
