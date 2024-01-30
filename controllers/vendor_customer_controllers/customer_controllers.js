@@ -428,25 +428,8 @@ const availabilitie = available && available.length > 0
                             from: 'talhadeveloper7@gmail.com 📧 Honest Home Hub', // Replace with your email address
                             to: email, // Convert the array of emails to a comma-separated string
                             subject: ' New Leads Alert',
-                            // text: `Hi, 
-                            //     Exciting news! We've just uncovered a job opportunity that aligns perfectly with your skills and experience on Honest Home Hub.
-                                 
-                            //     Our intelligent matching system has identified you as a strong candidate for this role.
-
-                            //     Details of New Lead:
-                            //     Type: ${selected_queries}
-                            //     Location: ${location}
-                            //     Note: ${note}   
-                                    
-
-                            //     Don't let this opportunity slip away! Reach out to these leads now and secure a path to business prosperity.
-
-                            //     Regards,
-
-                            //     Honest Home Hub
-        
-                            
-                            // `
+                           
+                         
                             html :
                                         `
                                         <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
