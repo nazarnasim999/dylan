@@ -26,7 +26,9 @@ const createSchedule = async (req, res) => {
         time1,
         time2,
 
-        jobId
+        jobId,
+
+        shedule_descriptions
 
 
 
@@ -116,6 +118,7 @@ const createSchedule = async (req, res) => {
             time,
             date,
             Paystatus,
+            shedule_descriptions
 
         });
 

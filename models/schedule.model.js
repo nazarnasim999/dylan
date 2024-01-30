@@ -7,8 +7,12 @@ const scheduleSchema = new mongoose.Schema({
     customerJobDetails: { type: Object, required: true },
     customerDetails: { type: Object, required: true },
     vendorBudget: { type: Number, required: true },
-    time: { type: String, required: true },
-    date: { type: String, required: true },
+    time: { type: String,
+        //  required: true
+         },
+    date: { type: String,
+        //  required: true
+         },
 
 
     time0: { type: Number , 
@@ -19,6 +23,9 @@ const scheduleSchema = new mongoose.Schema({
         },
     time2:{ type: Number , 
         // required: true 
+    },
+
+    shedule_descriptions: {type: String,
     },
 
 
