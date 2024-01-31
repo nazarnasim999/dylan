@@ -314,11 +314,6 @@ const create_customer_job = async (req, res, next) => {
             zipcode,
             emergency,
             note
-        
-
-
-            
-           
            
         } = body;
 
