@@ -33,7 +33,7 @@ const Customer_Schema = mongoose.model('create_customer', new Schema({
     },
     phoneno: {
         type: Number,
-        required: true
+        // required: true
     },
     
 

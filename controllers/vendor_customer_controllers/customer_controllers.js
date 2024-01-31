@@ -127,7 +127,7 @@ const save_image1 = async (req, res, next) => {
         let customer = await Customer_Schema.findOne({ _id: userId });
         // let customer = await Customer_Schema.findOne({ _id: '658accf531fdde44bc3f16e1' });
         
-        console.log('lllllTSCustomer' , userId);
+        console.log('lllllTSCustomersss' , customer);
 
         // console.log('lllllTSCustomer' , '658accf531fdde44bc3f16e1');
     
@@ -404,11 +404,11 @@ const availabilitie = available && available.length > 0
 
                                                 // Create a Nodemailer transporter
                                     const transporter = nodemailer.createTransport({
-                                        host: "sandbox.smtp.mailtrap.io",
-                                        port: 2525,
+                                        host: "smtp.gmail.com",
+                                        port: 465,
                                         auth: {
-                                            user: "08ea1ab2a87a09",
-                                            pass: "54599b10270c2a"
+                                            user: "mromaa2001@gmail.com",
+                                            pass: "zlnlbzjdjcovhkod"
                                         }
                                     });
 
@@ -551,13 +551,16 @@ const availabilitie = available && available.length > 0
                                     <table class="p-2 w-full" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" width="100%">
                                       <tbody>
                                         <tr>
-                                          <td style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px; font-weight: 800;color: #B22234;" align="left" width="100%">TYPE</td>
-                                          <td class="text-right" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px; font-weight: 800;color: #B22234;" align="right" width="100%">${type}</td>
+                                          <td style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px; font-weight: 800;color: #B22234;" align="left" width="100%">Type</td>
+                                          <td class="text-right" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px; font-weight: 800;color: #B22234;" align="right" width="100%">${selected_queries}</td>
                                         </tr>
                                         <tr>
                                           <td style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px; font-weight: 800;color: #B22234;" align="left" width="100%">Location</td>
                                           <td class="text-right" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px; font-weight: 800;color: #B22234;" align="right" width="100%">${location}</td>
                                         </tr>
+                                        <tr>
+                                        <td style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px; font-weight: 800;color: #B22234;" align="left" width="100%">Details</td>
+                                        <td class="text-right" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 8px; font-weight: 800;color: #B22234;" align="right" width="100%">${details}</td>
                                         <tr>
                                       
                                         </tr>
