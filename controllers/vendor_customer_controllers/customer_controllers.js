@@ -399,11 +399,11 @@ const availabilitie = available && available.length > 0
 
                                                 // Create a Nodemailer transporter
                                     const transporter = nodemailer.createTransport({
-                                        host: "smtp.gmail.com",
-                                        port: 465,
+                                        // host: "smtp.gmail.com",
+                                        // port: 465,
                                         auth: {
-                                            user: "mromaa2001@gmail.com",
-                                            pass: "zlnlbzjdjcovhkod"
+                                            // user: "mromaa2001@gmail.com",
+                                            // pass: "zlnlbzjdjcovhkod"
                                         }
                                     });
 
